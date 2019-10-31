@@ -1,30 +1,31 @@
 import HTTP from '../utils/http'
+import Qs from 'qs'
 const _http = new HTTP()
 
 class Product {
   list () {
     return _http.request({
-      url: 'banner/list'
+      url: 'small4/banner/list'
     })
   }
   goodList () {
     return _http.request({
-      url: 'cms/news/list'
+      url: 'small4/cms/news/list'
     })
   }
   kanList () {
     return _http.request({
-      url: 'shop/goods/kanjia/list'
+      url: 'small4/shop/goods/kanjia/list'
     })
   }
   cms () {
     return _http.request({
-      url: 'cms/news/list'
+      url: 'small4/cms/news/list'
     })
   }
   detail (productId) {
     return _http.request({
-      url: `cms/news/detail?id=${productId}`
+      url: `small4/cms/news/detail?id=${productId}`
       // data: {
       //   id: productId
       // }
@@ -32,24 +33,24 @@ class Product {
   }
   per () {
     return _http.request({
-      url: 'shop/goods/list'
+      url: 'small4/shop/goods/list'
     })
   }
   classity () {
     return _http.request({
       type: 'post',
-      url: 'shop/goods/category/all'
+      url: 'small4/shop/goods/category/all'
     })
   }
   classls (id) {
     return _http.request({
-      url: `shop/goods/list?id=${id}`
+      url: `small4/shop/goods/list?id=${id}`
     })
   }
   det (id) {
     return _http.request({
       type: 'post',
-      url: 'shop/goods/detail',
+      url: 'small4/shop/goods/detail',
       data: {
         id: id
       }
@@ -60,7 +61,7 @@ class Product {
   login (obj) {
     return _http.request({
       type: 'post',
-      url: 'user/m/login?deviceId=007&deviceName=monkey',
+      url: 'small4/user/m/login?deviceId=007&deviceName=monkey',
       data: {
         mobile: obj.mobile,
         pwd: obj.pwd
@@ -71,7 +72,7 @@ class Product {
   msg (obj) {
     return _http.request({
       type: 'post',
-      url: 'verification/sms/get',
+      url: 'small4/verification/sms/get',
       data: {
         mobile: obj.mobile,
         key: obj.key,
@@ -83,7 +84,7 @@ class Product {
   register (obj) {
     return _http.request({
       type: 'post',
-      url: 'user/m/register',
+      url: 'small4/user/m/register',
       data: {
         mobile: obj.mobile,
         pwd: obj.pwd,
@@ -96,7 +97,7 @@ class Product {
   reputation (id) {
     return _http.request({
       type: 'post',
-      url: 'shop/goods/reputation',
+      url: 'small4/shop/goods/reputation',
       data: {
         goodsId: id
       }
@@ -106,7 +107,7 @@ class Product {
   tokanjia (obj) {
     return _http.request({
       type: 'post',
-      url: 'shop/goods/kanjia/info',
+      url: 'small4/shop/goods/kanjia/info',
       data: {
         kjid: obj.kjid,
         joiner: obj.joiner
@@ -117,7 +118,7 @@ class Product {
   kanOne (payload) {
     return _http.request({
       type: 'post',
-      url: 'shop/goods/kanjia/help',
+      url: 'small4/shop/goods/kanjia/help',
       data: {
         token: payload.token,
         kjid: payload.kjid,
@@ -125,6 +126,102 @@ class Product {
       }
     })
   }
+  //收货地址列表
+  address (payload) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/user/shipping-address/list',
+      data: {
+        token: payload
+      }
+    })
+  }
+  //省市区
+  sheng () {
+    return _http.request({
+      type: 'post',
+      url: 'common/region/province'
+    })
+  }
+  shi (id) {
+    return _http.request({
+      type: 'post',
+      url: 'common/region/child',
+      data: {
+        pid: id
+      }
+    })
+  }
+  //添加收货地址
+  addAddress (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/user/shipping-address/add',
+      data: {
+        address: obj.address,
+        cityId: obj.cityId,
+        code: obj.code,
+        linkMan: obj.linkMan,
+        mobile: obj.mobile,
+        provinceId: obj.provinceId,
+        token: obj.token
+      }
+    })
+  }
+  //默认的收货地址
+  defaultAddress (token) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/user/shipping-address/default',
+      data: {
+        token: token
+      }
+    })
+  }
+  //删除地址
+  delAddress (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/user/shipping-address/delete',
+      data: {
+        token: obj.token,
+        id: obj.id
+      }
+    })
+  }
+  //订单创建
+  createOrder (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/order/create',
+      data: {
+
+        token: obj.token,
+        goodsJsonStr: obj.goodsJsonStr
+      }
+    })
+  }
+  //获取尺寸和规格
+  size (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/shop/goods/price',
+      data: {
+        goodsId: obj.goodsId,
+        propertyChildIds: obj.colorid + ',' + obj.sizeid
+      }
+    })
+  }
+  orders (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/order/list',
+      data: {
+        token: obj.token,
+      }
+    })
+  }
+
 }
 
 export default Product

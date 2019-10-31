@@ -83,6 +83,7 @@
             finishedClick(){
                 this.delShow = false
                 this.finishedShow = false
+                this.$store.state.storeLs.forEach(v => v.checked=true)
             },
             del(){
                 this.$store.state.storeLs = this.$store.state.storeLs.filter(v => {
@@ -112,6 +113,7 @@
         },
         computed: {
             shopList(){
+                
                 return this.$store.state.storeLs
             },
             allPri(){

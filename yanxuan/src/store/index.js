@@ -7,7 +7,10 @@ const store = new Vuex.Store({
   state: {
     storeLs: [],
     tk: [],
-    kaninfo: {}
+    kaninfo: {},
+    address: {},
+    order: {},
+    myod: ""
   },
   mutations: {
     storeLogin (state, obj) {
@@ -26,6 +29,18 @@ const store = new Vuex.Store({
     },
     kanjia (state, payload) {
       state.kaninfo = payload
+    },
+    defaultAdd (state, payload) {
+      state.address = payload
+      console.log(payload)
+    },
+    addOrder (state, payload) {
+      state.order = payload
+      console.log(state.order)
+    },
+    myorder (state, payload) {
+      state.myod = payload
+      console.log(state.myod)
     }
   },
   getters: {

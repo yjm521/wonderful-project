@@ -17,6 +17,10 @@ const Register = () => import('../views/loagin/register.vue')
 Vue.use(Router)
 const Bargaininfo = () => import('../views/kanjia/bargaininfo.vue')
 const Purchase = () => import('../views/xiadan/purchase.vue')
+const Address = () => import('../views/xiadan/address.vue')
+const Updateass = () => import('../views/xiadan/updateass.vue')
+const Payment = () => import('../views/xiadan/payment.vue')
+const Dingdan = () => import('../views/xiadan/dingdan.vue')
 export default new Router({
   linkActiveClass: 'mine-active',
   mode: 'history',
@@ -127,6 +131,26 @@ export default new Router({
       path: '/purchase',
       name: 'purchase',
       component: Purchase
+    },
+    {
+      path: '/user_address',
+      name: 'addre',
+      component: Address
+    },
+    {
+      path: '/update_address/:id',
+      name: 'updateass',
+      component: Updateass
+    },
+    {
+      path: '/payment/:id',
+      name: 'payment',
+      component: Payment
+    },
+    {
+      path: '/dingdan',
+      name: 'dingdan',
+      component: Dingdan
     }
   ]
 })

@@ -1,8 +1,8 @@
 <template>
-    <div class="det">
+    <div>
         <!-- 加入购物车模态框 -->
-        <div v-show="shopSh" class="shopfloat">
-            <div class="shoptop">
+        <div v-show="shopSh" class="shoptop">
+            <!-- <div class="shoptop"> -->
                 <div class="tp">
                     <img :src="info.pic" alt="">
                     <div>
@@ -16,7 +16,7 @@
                         <li>
                             <p>{{ shopls.name }}</p>
                             <div>
-                                <div :class="inx1==index?'redcolor':''"  @click="changeRed(item.name,index)" v-for="(item,index) in shopls.childsCurGoods" :key="index">{{ item.name }}</div>
+                                <div :class="inx1==index?'redcolor':''"  @click="changeRed(item,index)" v-for="(item,index) in shopls.childsCurGoods" :key="index">{{ item.name }}</div>
                             </div>
                         </li>
                     </ul>
@@ -24,7 +24,7 @@
                          <li v-if="alls.length == 2">
                             <p>{{ shopls2.name }}</p>
                             <div>
-                                <div :class="inx2==index?'redcolor':''" @click="changeRed2(item.name,index)" v-for="(item,index) in shopls2.childsCurGoods" :key="index">{{ item.name }}</div>
+                                <div :class="inx2==index?'redcolor':''" @click="changeRed2(item,index)" v-for="(item,index) in shopls2.childsCurGoods" :key="index">{{ item.name }}</div>
                             </div>
                         </li>
                     </ul>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <button @click="addShop" class="btn">加入购物车</button>
-            </div>
+            <!-- </div> -->
             
         </div>
         <!-- 立即购买模态框 -->
@@ -82,75 +82,85 @@
             </div>
             
         </div>
-        <!-- 底部固定 -->
-        <div class="foot" v-show="kanjiashow">
-            <ul>
-                <li><i class="el-icon-headset"></i></li>
-                <router-link to="/cart" tag="li">
-                    <i class="el-icon-shopping-cart-2"></i>
-                    <p>{{ this.$store.getters.allCount }}</p>
-                </router-link>
-                <li><i class="el-icon-star-off"></i></li>
-                <li @click="nowShop">立即购买</li>
-                <li @click="showShop">加入购物车</li>
-            </ul>
-        </div>
-        <router-link tag="div" :to="{path:'/bargain_info',query:{kjid:this.kid,joiner:this.$store.state.tk.uid,token:this.$store.state.tk.token}}" 
-                                class="foot2" v-show="!kanjiashow">
-                                立即发起砍价，最低可砍到1元
-        </router-link>
-         <div class="block">
-            <el-carousel trigger="click" height="5.4rem">
-                <el-carousel-item v-for="(item,index) in pics" :key="index">
-                <div>
-                    <img :src="item.pic" alt />
-                </div>
-                </el-carousel-item>
-            </el-carousel>
-        </div>
-        <p class="tit" v-html="info.name"></p>
-        <div class="num">
-            <div>
-                <p>￥{{ info.minPrice }}</p>
-                <p>￥{{ info.originalPrice }}</p>
+        <div class="det">
+            <!-- 底部固定 -->
+            <div class="foot" v-show="kanjiashow">
+                <ul>
+                    <li><i class="el-icon-headset"></i></li>
+                    <router-link to="/cart" tag="li">
+                        <i class="el-icon-shopping-cart-2"></i>
+                        <p>{{ this.$store.getters.allCount }}</p>
+                    </router-link>
+                    <li><i class="el-icon-star-off"></i></li>
+                    <li @click="nowShop">立即购买</li>
+                    <li @click="showShop">加入购物车</li>
+                </ul>
             </div>
-            <p>已售{{ info.numberSells }}</p>
-        </div>
-        <div class="selectShop" @click="showShop">
-            <p>选择规格：{{ shopls.name }}</p>
-            <p><i class="el-icon-arrow-right"></i></p>
-        </div>
-        <div class="shops">
-            <p @click="jieshao" :class="red?'red':''">商品介绍</p>
-            <p @click="pingjia" :class="red?'':'red'">商品评价</p>
-        </div>
-        <div v-show="isShow" class="htl" v-html="detLs.content"></div>
-        <div class="pingjia" v-show="!isShow">
-            <ul>
-                <li v-for="(v,i) in pingPers" :key="i">
-                    <div><i class="el-icon-user"></i></div>
+            <router-link tag="div" :to="{path:'/bargain_info',query:{kjid:this.kid,joiner:this.$store.state.tk.uid,token:this.$store.state.tk.token}}" 
+                                    class="foot2" v-show="!kanjiashow">
+                                    立即发起砍价，最低可砍到1元
+            </router-link>
+            <div class="block">
+                <el-carousel trigger="click" height="5.4rem">
+                    <el-carousel-item v-for="(item,index) in pics" :key="index">
                     <div>
-                        <div>
-                            <p>匿名评价</p>
-                            <p>{{ v.goods.goodReputationStr }}</p>
-                        </div>
-                        <p>{{ v.goods.goodReputationRemark }}</p>
-                        <div>
-                            <span>{{ v.goods.dateReputation }}</span>
-                            <span>选择规格:</span>
-                            <span v-html="v.goods.goodsName"></span>
-                        </div>
+                        <img :src="item.pic" alt />
                     </div>
-                </li>
-            </ul>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <p class="tit" v-html="info.name"></p>
+            <div class="num">
+                <div>
+                    <p>￥{{ info.minPrice }}</p>
+                    <p>￥{{ info.originalPrice }}</p>
+                </div>
+                <p>已售{{ info.numberSells }}</p>
+            </div>
+            <div class="selectShop" @click="showShop">
+                <p>选择规格：{{ shopls.name }}</p>
+                <p><i class="el-icon-arrow-right"></i></p>
+            </div>
+            <div class="shops">
+                <p @click="jieshao" :class="red?'red':''">商品介绍</p>
+                <p @click="pingjia" :class="red?'':'red'">商品评价</p>
+            </div>
+            <div v-show="isShow" class="htl" v-html="detLs.content"></div>
+            <div class="pingjia" v-show="!isShow">
+                <ul>
+                    <li v-for="(v,i) in pingPers" :key="i">
+                        <div><i class="el-icon-user"></i></div>
+                        <div>
+                            <div>
+                                <p>匿名评价</p>
+                                <p>{{ v.goods.goodReputationStr }}</p>
+                            </div>
+                            <p>{{ v.goods.goodReputationRemark }}</p>
+                            <div>
+                                <span>{{ v.goods.dateReputation }}</span>
+                                <span>选择规格:</span>
+                                <span v-html="v.goods.goodsName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div @click="back" class="fd">
+                <i class="el-icon-arrow-left"></i>
+            </div>
+            <div class="addsucc" v-show="addsucc">
+                加入成功
+            </div>
         </div>
-        <div @click="back" class="fd">
-            <i class="el-icon-arrow-left"></i>
-        </div>
-        <div class="addsucc" v-show="addsucc">
-            加入成功
+        <div class="dont" v-show="dont">
+            <div class="tips">
+                <p>提示</p>
+                <p>请选择商品规格</p>
+                <p @click="closeDont">确定</p>
+            </div>
         </div>
     </div>
+    
     
 </template>
 
@@ -174,13 +184,18 @@
                 inx1: -1,
                 inx2: -1,
                 size: "",
-                col: "",
+                color: "",
                 addsucc: false,
                 nowshop: false,
                 kanjiashow: false,
                 shopNumber: 1,
                 ls: [],
-                kid: ""
+                kid: "",
+                dont: false,
+                colorid: "",
+                colorid2: "",
+                sizeid: "",
+                childs: ""
             }
         },
         created () {
@@ -192,7 +207,8 @@
                 this.shopls = res.data.data.properties[0]
                 this.shopls2 = res.data.data.properties[1]
                 this.alls = res.data.data.properties
-                console.log(this.info)
+                // console.log(this.shopls)
+                // console.log(this.shopls2)
                 let kanjiaBool = res.data.data.basicInfo.kanjia
                 if(kanjiaBool == false) {
                     this.kanjiashow = true
@@ -201,6 +217,11 @@
                 }
                 this.$store.commit("kanjia",this.info)
             })
+            // let tk = this.$store.state.tk.token
+            //  _product.defaultAddress(tk).then(res => {
+            //     //console.log(res.data.data)
+            //     this.$store.commit("defaultAdd",res.data.data)
+            // })
             _product.kanList().then(res => {
                 let { id } = this.$route.query
                 //console.log(id)
@@ -229,12 +250,42 @@
                 this.nowshop = false
             },
             changeRed(v,i){
+                let { id } = this.$route.query
                 this.inx1 = i
-                this.size = v
+                this.size = v.name
+                
+                console.log(v)
+                this.colorid = v.id
+                this.sizeid = v.id
+                console.log(this.colorid)
+                let obj = {
+                    goodsId: id,
+                    colorid: this.colorid,
+                    sizeid: this.sizeid
+                }
+                _product.size(obj).then(res => {
+                    console.log(res.data.data)
+                    this.childs = res.data.data.propertyChildIds
+                })
             },
             changeRed2(v,i){
+                let { id } = this.$route.query
                 this.inx2 = i
-                this.col = v
+                this.color = v.name
+                //console.log(v)
+                this.sizeid = v.id
+                console.log(this.colorid)
+                console.log(this.sizeid)
+                 let obj = {
+                    goodsId: id,
+                    colorid: this.colorid,
+                    sizeid: this.sizeid
+                }
+                _product.size(obj).then(res => {
+                    console.log(res.data.data)
+                    this.childs = res.data.data.propertyChildIds
+                    console.log(this.childs)
+                })
             },
             jieshao(){
                 this.red = true
@@ -255,20 +306,69 @@
             showShop(){
                 this.shopSh = true
             },
+            closeDont(){
+                this.dont = false
+            },
             addShop(){
+                let { id } = this.$route.query
                 let obj = {
                     info: this.info,
                     size: this.size,
-                    col: this.col,
+                    col: this.color,
                     checked: true,
-                    num: this.shopNumber
+                    num: this.shopNumber,
+                    goodsId: id,
+                    propertyChildIds:this.childs
                 }
-                this.$store.commit("add",obj)
-                this.addsucc = true
-                this.shopSh = false
-                setTimeout(()=>{
-                    this.addsucc = false
-                },2000)
+                if(this.alls.length == 2){
+                    if(this.size == "" || this.col == ""){
+                         this.dont = true
+                         return
+                    }else{
+                        this.addsucc = true
+                        this.shopSh = false
+                        setTimeout(()=>{
+                            this.addsucc = false
+                        },2000)
+                        this.$store.commit("add",obj)
+                    }
+                }else{
+                    if(this.size == ""){
+                        this.dont = true
+                        return
+                    }else{
+                        this.addsucc = true
+                        this.shopSh = false
+                        setTimeout(()=>{
+                            this.addsucc = false
+                        },2000)
+                        this.$store.commit("add",obj)
+                    }
+                }
+              
+                    // if(this.size=="" && this.col!=""){
+                    //     this.dont = true
+                    //     return
+                    // }else if(this.size !="" && this.col ==""){
+                    //     this.dont = true
+                    //     return
+                    // }else if(this.size==""&&this.col==""){
+                    //     this.dont = true
+                    //     return
+                    // }else{
+                    //     this.addsucc = true
+                    //     this.shopSh = false
+                    //     setTimeout(()=>{
+                    //         this.addsucc = false
+                    //     },2000)
+                    //     this.$store.commit("add",obj)
+                    //     this.inx1 = -1
+                    //     this.inx2 = -1  
+                    // }
+                
+                
+                
+                
             },
             close(){
                 this.shopSh = false
@@ -288,7 +388,35 @@
         color: white;
         left: 50%;
         top: 3rem;
-        z-index: 999;
+        z-index: 111;
+    }
+    .dont{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 300;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .tips{
+            width: 3rem;
+            text-align: center;
+            height: 1.5rem;
+            background: white;
+            line-height: 0.45rem;
+            color: #000;
+            border-radius: 0.15rem;
+            p:nth-of-type(3){
+                color: blue;
+            }
+            p:nth-of-type(2){
+                color: darkgray;
+                font-size: 0.16rem;
+            }
+        }
     }
     .det{
         width: 5.6rem;
@@ -507,14 +635,10 @@
             }
         }
     }
-    .shopfloat{
-            width: 100%;
-            height: 100%;
-            position: flex;
-            left: 0;
-            top: 0;
-            z-index: 10;
-            background: rgba(0,0,0,.3);
+    .cart{
+        width: 100%;
+        height: 100%;
+    }
             .btn{
                 width: 100%;
                 height: 0.8rem;
@@ -559,13 +683,13 @@
                 }
             }
             .shoptop{
-                position: absolute;
+                position: fixed;
                 left: 0;
-                bottom:0;
+                bottom:1.8rem;
                 background: white;
                 height: 5rem;
                 width: 100%;
-                z-index: 20;
+                z-index: 150;
                 .shopSt{
                     width: 100%;
                     height: 2.8rem;
@@ -631,6 +755,6 @@
                     }
                 }
             }
-        }
+    
     
 </style>

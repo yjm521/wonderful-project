@@ -12,7 +12,7 @@
             <img src="/static/news.png" alt="">
             <marquee style="color:#d00000;font-size:0.14rem" behavior="" scrollamount="2" direction="up">{{ news }}</marquee>
         </div>
-        <div class="user_mine">
+        <router-link tag="div" to="/dingdan" class="user_mine">
             <div>
                <div>
                     <i class="el-icon-tickets"></i>
@@ -20,7 +20,7 @@
                </div>
                 <i class="el-icon-arrow-right"></i>
             </div>
-        </div>
+        </router-link>
         <div class="user_nav">
                 <ul>
                     <li>
@@ -48,18 +48,27 @@
                     <p>我的余额</p>
                     <p>0元</p>
                 </li>
+                
                 <li>
                     <img src="/static/nav_2.png" alt="">
                     <p>我的砍价</p>
+                </li>
+
                 <li>
                     <img src="/static/nav_3.png" alt="">
                     <p>我的礼券</p>
+                </li>
+
                 <li>
                     <img src="/static/nav_4.png" alt="">
                     <p>我的收藏</p>
-                <li>
+                </li>
+
+                <router-link tag="li" :to="{name: 'addre',params:{token:this.$store.state.tk.token}}">
                     <img src="/static/nav_5.png" alt="">
                     <p>我的地址</p>
+                </router-link>
+
                 <li>
                     <img src="/static/nav_6.png" alt="">
                     <p>联系客服</p>
@@ -75,7 +84,9 @@
             return {
                 news: '新上线更稳定的付费快递查询接口！！！',
                 flag:false,
-                userid: ''
+                userid: '',
+                token: "",
+                id: ""
             }
         },
         created () {
@@ -83,6 +94,9 @@
                this.userid = JSON.parse(localStorage.getItem("tokenData")).uid
                this.flag = true
            }
+           console.log(this.$store.state.myod)
+           this.token = this.$store.state.tk.token
+           this.id = this.$store.state.myod
         },
         methods: {
             

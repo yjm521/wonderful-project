@@ -5,9 +5,17 @@
                 <p><i @click="back" class="el-icon-arrow-left"></i></p>
                 <p>确认订单</p>
             </div>
-            <div class="address">
-
-            </div>
+            <router-link tag="div" to="/user_address" class="aress">
+                <p><i class="el-icon-location-outline"></i></p>
+                <div>
+                    <p>
+                        <span>{{ defaultAddress.linkMan }}</span>
+                        <span>{{ defaultAddress.mobile }}</span>
+                    </p>
+                    <p>{{ defaultAddress.address }}</p>
+                </div>
+                <p><i class="el-icon-arrow-right"></i></p>
+            </router-link>
             <div class="ls_container">
                 <div>商品列表</div>
                 <div class="ls" v-for="(item,index) in purls" :key="index">
@@ -15,8 +23,8 @@
                     <div>
                         <div v-html="item.info.name"></div>
                         <div>
-                            <p>规格：{{ item.size }}</p>
-                            <p>{{ item.col }}</p>
+                            <p>规格：{{ item.col }}</p>
+                            <p>{{ item.size }}</p>
                         </div>
                     </div>
                     <div>
@@ -41,26 +49,50 @@
         </div>
         <div class="fot">
             <p>合计：￥{{ allPri }}</p>
-            <button>提交订单</button>
+            <router-link tag="button" :to="`/payment/${this.ord.id}`">提交订单</router-link>
         </div>
     </div>
 </template>
 
 <script>
+import Product from '../../services/product-services'
+const _product = new Product
 export default {
     name: 'purchase',
     data () {
         return {
             purls: [],
-            long:true
+            long:true,
+            imp: [],
+            token: "",
+            ord: ""
         }
     },
     created () {
-        //console.log(this.$store.state.storeLs)
         this.purls = this.$store.state.storeLs.filter(v => {
             return v.checked
         })
-        console.log(this.purls)
+        this.token = this.$store.state.tk.token
+        //console.log(this.purls)
+        this.purls.map(v => {
+                let infos = {
+                    goodsId: v.goodsId,
+                    number: v.num,
+                    propertyChildIds:v.propertyChildIds,
+                    logisticsType:0
+                }
+                this.imp.push(infos)
+            })
+            let obj ={
+                token: this.token,
+                goodsJsonStr: JSON.stringify(this.imp)
+            }
+            _product.createOrder(obj).then(res => {
+                console.log(res)
+                this.ord = res.data.data
+                this.$store.commit("addOrder",this.ord)
+            })
+            //console.log(this.ord)
     },
     methods: {
         back(){
@@ -74,9 +106,12 @@ export default {
         }
     },
     computed: {
-          allPri(){
-                return this.$store.getters.allPri
-            },
+        allPri(){
+            return this.$store.getters.allPri
+        },
+        defaultAddress(){
+            return this.$store.state.address
+        }
     }
 }
 </script>
@@ -113,6 +148,25 @@ export default {
         }
     }
     .purchase{
+        .aress{
+            display: flex;
+            height: 1.2rem;
+            align-items: center;
+            justify-content: space-around;
+            >div{
+                width: 80%; 
+                text-indent: 0.2rem;
+                >p:nth-of-type(1){
+                    margin-bottom: 0.15rem;
+                }
+            }
+            >p:nth-of-type(1){
+                font-size: 0.26rem;
+            }
+            >p:nth-of-type(2){
+                font-size: 0.26rem;
+            }
+        }
         .tp{
             height: 0.6rem;
             width: 100%;

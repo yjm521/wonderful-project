@@ -1,22 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import localStore from '../storage/index.js'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    storeLs: [],
-    tk: [],
+    storeLs: localStore.get('list') || '',
+    tk: localStore.get('userinfo') || '',
     kaninfo: {},
     address: {},
     order: {},
-    myod: ""
+    myod: ''
   },
   mutations: {
     storeLogin (state, obj) {
       console.log(obj)
       state.tk = obj
-      localStorage.setItem('tokenData', JSON.stringify(obj))
+      localStore.set('userinfo', obj)
     },
     add (state, obj) {
       console.log(obj)
@@ -26,6 +27,7 @@ const store = new Vuex.Store({
       } else {
         state.storeLs.push(obj)
       }
+      localStore.set('list', state.storeLs)
     },
     kanjia (state, payload) {
       state.kaninfo = payload
@@ -56,6 +58,12 @@ const store = new Vuex.Store({
         return pri + v.info.minPrice * v.num
       }, 0)
     }
+    // storeLs: {
+    //   handler: function () {
+    //     localStore.set('list', getters.storeLs)
+    //   },
+    //   deep: true
+    // }
   }
 })
 

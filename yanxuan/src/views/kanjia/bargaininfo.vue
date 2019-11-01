@@ -75,13 +75,17 @@ export default {
         }
     },
     created () {
-        let obj = this.$route.query
-        this.ids = obj
-        console.log(obj)
+        let kjid = this.$route.query.kjid
+        let joiner = 1122517
+        console.log(kjid)
+        console.log(joiner)
+        let obj = {
+            kjid:kjid,
+            joiner: joiner
+        }
         _product.tokanjia(obj).then(res => {
             console.log(res)
             this.kls = res.data.data.kanjiaInfo
-            console.log(res.data.data.helps)
             this.helps = res.data.data.helps
         })
         
@@ -95,8 +99,9 @@ export default {
             console.log(obj)
             this.msg = "以当前价购买"
             _product.kanOne(obj).then(res => {
-                console.log(res.data.data)
+                console.log(res)
                 this.kanPri = res.data.data
+                console.log(this.kanPri)
             })
         }
     },

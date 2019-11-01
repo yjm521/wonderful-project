@@ -133,8 +133,11 @@
                 }
                 _product.addAddress(obj).then(res => {
                     console.log(res.data.data)
+                    if(res.data.code == 0){
+                        this.$router.push("/user_address")
+                    }
                 })
-                this.$router.push("/user_address")
+                
             },
             changeOpt(item){
                 this.shengs.forEach(v => {

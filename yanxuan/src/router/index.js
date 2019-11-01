@@ -13,6 +13,7 @@ const Detail = () => import('../views/products/detail.vue')
 const Sigin = () => import('../views/products/sigin.vue')
 const Gift = () => import('../views/products/gift.vue')
 const Login = () => import('../views/loagin/login.vue')
+const ResetPassword = () => import('../views/loagin/resetPassword.vue')
 const Register = () => import('../views/loagin/register.vue')
 Vue.use(Router)
 const Bargaininfo = () => import('../views/kanjia/bargaininfo.vue')
@@ -151,6 +152,11 @@ export default new Router({
       path: '/dingdan',
       name: 'dingdan',
       component: Dingdan
+    },
+    {
+      path: '/resetPassword',
+      name: 'resetPassword',
+      component: ResetPassword
     }
   ]
 })

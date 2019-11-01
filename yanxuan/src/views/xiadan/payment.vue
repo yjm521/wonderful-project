@@ -51,6 +51,9 @@ export default {
             setTimeout(()=>{
                 this.flag = false
             },1000)
+            this.$store.state.storeLs = this.$store.state.storeLs.filter(v => {
+                return v.checked == true
+            }).splice(0)
             this.$store.commit("myorder",this.order.orderNumber)
         }
     },

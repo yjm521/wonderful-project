@@ -29,11 +29,11 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>',
-  created () {
-    if (localStorage.getItem('tokenData') == null) {
-      localStorage.setItem('tokenData', '')
-    }
-    this.$store.state.tk = JSON.parse(localStorage.getItem('tokenData'))
-  }
+  template: '<App/>'
+  // created () {
+  //   if (localStorage.getItem('tokenData') == null) {
+  //     localStorage.setItem('tokenData', '')
+  //   }
+  //   this.$store.state.tk = JSON.parse(localStorage.getItem('tokenData'))
+  // }
 })

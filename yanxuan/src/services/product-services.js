@@ -217,7 +217,19 @@ class Product {
       type: 'post',
       url: 'small4/order/list',
       data: {
-        token: obj.token,
+        token: obj.token
+      }
+    })
+  }
+  //重设密码
+  reset (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/user/m/reset-pwd',
+      data: {
+        mobile: obj.mobile,
+        pwd: obj.pwd,
+        code: obj.code
       }
     })
   }

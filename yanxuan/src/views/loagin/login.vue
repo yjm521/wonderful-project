@@ -15,8 +15,9 @@
             </div>
             <button @click="login">登录</button>
             <div v-show="flag" class="fail">手机号或密码错误</div>
-            <p>忘记密码</p>
+            <router-link tag="p" to="/resetPassword">忘记密码</router-link>
             <router-link to="/register" tag="p">还没有注册？立即注册</router-link>
+            
         </div>
     </div>
 </template>

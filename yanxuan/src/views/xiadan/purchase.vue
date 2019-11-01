@@ -88,11 +88,10 @@ export default {
                 goodsJsonStr: JSON.stringify(this.imp)
             }
             _product.createOrder(obj).then(res => {
-                console.log(res)
+                console.log(res.data.code)
                 this.ord = res.data.data
                 this.$store.commit("addOrder",this.ord)
             })
-            //console.log(this.ord)
     },
     methods: {
         back(){

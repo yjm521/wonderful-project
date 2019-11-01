@@ -8,6 +8,7 @@
                 <p>积分：0</p>
             </div>
         </div>
+        
         <div class="user_news">
             <img src="/static/news.png" alt="">
             <marquee style="color:#d00000;font-size:0.14rem" behavior="" scrollamount="2" direction="up">{{ news }}</marquee>
@@ -78,6 +79,7 @@
     </div>
 </template>
 <script>
+    import localStore from '../../storage/index.js'
     export default {
         name: 'user',
         data () {
@@ -90,8 +92,8 @@
             }
         },
         created () {
-           if(localStorage.getItem("tokenData")){
-               this.userid = JSON.parse(localStorage.getItem("tokenData")).uid
+           if(localStore.get('userinfo')){
+               this.userid = localStore.get('userinfo').uid
                this.flag = true
            }
            console.log(this.$store.state.myod)

@@ -344,31 +344,8 @@
                         },2000)
                         this.$store.commit("add",obj)
                     }
-                }
-              
-                    // if(this.size=="" && this.col!=""){
-                    //     this.dont = true
-                    //     return
-                    // }else if(this.size !="" && this.col ==""){
-                    //     this.dont = true
-                    //     return
-                    // }else if(this.size==""&&this.col==""){
-                    //     this.dont = true
-                    //     return
-                    // }else{
-                    //     this.addsucc = true
-                    //     this.shopSh = false
-                    //     setTimeout(()=>{
-                    //         this.addsucc = false
-                    //     },2000)
-                    //     this.$store.commit("add",obj)
-                    //     this.inx1 = -1
-                    //     this.inx2 = -1  
-                    // }
-                
-                
-                
-                
+
+                }  
             },
             close(){
                 this.shopSh = false

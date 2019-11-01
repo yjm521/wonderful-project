@@ -32,7 +32,7 @@
                 <input id="a" :checked="isSelectAll" type="checkbox" @click="selectAll">全选
             </label>
             <p>合计￥{{ allPri }}</p>
-            <router-link to="/purchase" v-show="!delShow" tag="button">下单</router-link>
+            <button @click="place" v-show="!delShow">下单</button>
             <button v-show="delShow" @click="del">删除</button>
         </div>
         <div class="cart_link">
@@ -51,6 +51,7 @@
     </div>
 </template>
 <script>
+    import localStore from '../../storage/index.js'
     import Product from '../../services/product-services'
     const _product = new Product()
     export default {
@@ -72,7 +73,6 @@
                 }
                 //console.log(this.ranList)
             })
-           
         },
         methods: {
             editClick(){
@@ -109,8 +109,26 @@
                     this.$store.state.storeLs.forEach(v => v.checked=true)
                 }
                 console.log(this.isSelectAll)
+            },
+            place(){
+                this.$store.state.storeLs.forEach(v => {
+                    if(v.checked==false){
+                        alert("未选中任何商品")
+                    }else{
+                        this.$router.push("/purchase")
+                    }
+                })
+                
             }
         },
+        watch: {
+          shopList:{
+            handler(){
+              localStore.set("list",this.shopList)
+            },
+            deep:true
+          }
+        },
         computed: {
             shopList(){
                 

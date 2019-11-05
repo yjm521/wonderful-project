@@ -65,7 +65,8 @@ export default {
             long:true,
             imp: [],
             token: "",
-            ord: ""
+            ord: "",
+            defaultAddress: ""
         }
     },
     created () {
@@ -73,6 +74,7 @@ export default {
             return v.checked
         })
         this.token = this.$store.state.tk.token
+        this.getdefaultAddress(this.token)
         //console.log(this.purls)
         this.purls.map(v => {
                 let infos = {
@@ -90,10 +92,17 @@ export default {
             _product.createOrder(obj).then(res => {
                 console.log(res.data.code)
                 this.ord = res.data.data
+                console.log(this.ord)
                 this.$store.commit("addOrder",this.ord)
             })
     },
     methods: {
+        getdefaultAddress(token){
+            _product.defaultAddress(token).then(res => {
+                console.log(res)
+                this.defaultAddress = res.data.data
+            })
+        },
         back(){
             history.back()
         },
@@ -108,9 +117,9 @@ export default {
         allPri(){
             return this.$store.getters.allPri
         },
-        defaultAddress(){
-            return this.$store.state.address
-        }
+        // defaultAddress(){
+        //     return this.$store.state.address
+        // }
     }
 }
 </script>

@@ -19,10 +19,10 @@
                 <p><i class="el-icon-map-location"></i></p>
                 <div>
                     <p>
-                        <span>{{ address.linkMan }}</span>
-                        <span>{{ address.mobile }}</span>
+                        <span>{{ defaultAddress.linkMan }}</span>
+                        <span>{{ defaultAddress.mobile }}</span>
                     </p>
-                    <p>{{ address.address }}</p>
+                    <p>{{ defaultAddress.address }}</p>
                 </div>
             </div>
         </div>
@@ -35,12 +35,20 @@
 </template>
 
 <script>
+import Product from '../../services/product-services'
+const _product = new Product()
 export default {
     name: 'payment',
     data () {
         return {
-            flag: false      
+            flag: false,
+            defaultAddress: "",
+            token: ""      
         }
+    },
+    created () {
+        this.token = this.$store.state.tk.token
+        this.getdefaultAddress(this.token)
     },
     methods: {
         back(){
@@ -55,14 +63,17 @@ export default {
                 return v.checked == true
             }).splice(0)
             this.$store.commit("myorder",this.order.orderNumber)
-        }
+        },
+        getdefaultAddress(token){
+            _product.defaultAddress(token).then(res => {
+                console.log(res)
+                this.defaultAddress = res.data.data
+            })
+        },
     },
     computed: {
         order(){
             return this.$store.state.order
-        },
-        address(){
-            return this.$store.state.address
         }
     }
 }

@@ -111,14 +111,11 @@
                 console.log(this.isSelectAll)
             },
             place(){
-                this.$store.state.storeLs.forEach(v => {
-                    if(v.checked==false){
+                    if(this.allPri <= 0){
                         alert("未选中任何商品")
                     }else{
                         this.$router.push("/purchase")
                     }
-                })
-                
             }
         },
         watch: {

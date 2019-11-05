@@ -3,8 +3,8 @@
         <div class="user_top">
             <div><i class="el-icon-user"></i></div>
             <div>
-                <router-link v-show="!flag" to="/login" tag="p">点击登录</router-link>
-                <p v-show="flag">{{ userid }}</p>
+                <router-link v-if="!flag" to="/login" tag="p">点击登录</router-link>
+                <p v-else>{{ userid }}</p>
                 <p>积分：0</p>
             </div>
         </div>
@@ -92,9 +92,11 @@
             }
         },
         created () {
-           if(localStore.get('userinfo')){
+           if(localStore.get('userinfo') != ''){
                this.userid = localStore.get('userinfo').uid
                this.flag = true
+           }else{
+               this.flag = false
            }
            console.log(this.$store.state.myod)
            this.token = this.$store.state.tk.token

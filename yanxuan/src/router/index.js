@@ -22,6 +22,7 @@ const Address = () => import('../views/xiadan/address.vue')
 const Updateass = () => import('../views/xiadan/updateass.vue')
 const Payment = () => import('../views/xiadan/payment.vue')
 const Dingdan = () => import('../views/xiadan/dingdan.vue')
+const Dingdan2 = () => import('../views/xiadan/dingdan2.vue')
 export default new Router({
   linkActiveClass: 'mine-active',
   mode: 'history',
@@ -157,6 +158,11 @@ export default new Router({
       path: '/resetPassword',
       name: 'resetPassword',
       component: ResetPassword
+    },
+    {
+      path: '/dingdan/:orderId/:id',
+      name: 'dingdan2',
+      component: Dingdan2
     }
   ]
 })

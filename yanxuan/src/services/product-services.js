@@ -217,7 +217,8 @@ class Product {
       type: 'post',
       url: 'small4/order/list',
       data: {
-        token: obj.token
+        token: obj.token,
+        pageSize: obj.pageSize
       }
     })
   }
@@ -233,7 +234,17 @@ class Product {
       }
     })
   }
-
+  reput (obj) {
+    return _http.request({
+      type: 'post',
+      url: 'small4/order/reputation',
+      data: {
+        token: obj.token,
+        postJsonString: obj.postJsonString
+      }
+    })
+  }
+  
 }
 
 export default Product
